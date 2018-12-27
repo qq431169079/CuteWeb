@@ -8,9 +8,20 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-import sys
+import sys,os
+sys.path.append("..../")
 reload(sys)
+from sqlServer import *
+from InfoApi import *
 sys.setdefaultencoding('utf-8')
+
+insertSql="""
+    INSERT INTO [dbo].[StockInfo]([StockName],[StockCode],[Site],[Type])VALUES('%s','%s','%s','%s')
+"""
+
+delsql="""
+    delete from [CuteWeb].[dbo].[StockInfo]
+"""
 
 r=requests.get("http://quote.eastmoney.com/stocklist.html",timeout=300)
 r.encoding=r.apparent_encoding
@@ -41,5 +52,7 @@ for key in quote:
     # print  quote_name+"\t"+quote_num+"\t"+quote[key]+"\t"+Type+"\n"
     templist.append(tuple([quote_name,quote_num,quote[key],Type]))
     # file.write(quote_name+"\t"+quote_num+"\t"+quote[key]+"\t"+Type+"\n")
-for i in templist:
-    print i[0],i[1],i[2],i[3]
+temp=InfoAPI(os.path.dirname(os.path.abspath(".."))).GetStockDatabase()
+mysql=Mysql(temp[0],temp[1],temp[2],temp[3])
+mysql.ExecNonQuery(delsql)
+mysql.ExecmanysNonQuery(insertSql,templist)

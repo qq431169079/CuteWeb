@@ -4,13 +4,14 @@
 """
 连接配置文件的数据库
 """
-import ConfigParser
+import ConfigParser,sys,os
 
 
 class InfoAPI:
-    def __init__(self):
+    def __init__(self,path):
+
         self.cf=ConfigParser.ConfigParser()
-        self.cf.read("./config.ini")
+        self.cf.read(path+"./config.ini")
 
     def GetStockDatabase(self):
         """分别返回server,user,password,dbname"""
