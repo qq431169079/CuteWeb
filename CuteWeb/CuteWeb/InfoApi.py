@@ -18,6 +18,5 @@ class InfoAPI:
         return temp[0],temp[1],temp[2],temp[3]
 
 
-
 # if __name__=='__main__':
 #     print InfoAPI().GetStockDatabase()
