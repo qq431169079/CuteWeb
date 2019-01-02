@@ -78,10 +78,22 @@ WSGI_APPLICATION = 'CuteWeb.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+     'default': {
+            'ENGINE': 'sqlserver',
+            'NAME': 'CuteWeb',
+            'HOST': '192.168.50.244',
+            'PORT': '53350',
+            'USER': 'sa',
+            'PASSWORD': 'aa85258584',
+            'OPTIONS': {
+                'DRIVER': 'SQL Server Native Client 10.0',
+                'MARS_Connection': True,
+            },
+        }
 }
 
 
